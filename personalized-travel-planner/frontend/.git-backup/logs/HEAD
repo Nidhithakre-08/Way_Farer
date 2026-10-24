@@ -1,0 +1,6 @@
+0000000000000000000000000000000000000000 3d520cc25fe305fd3d008d1626c4600736702f26 Nidhi Thakre <nidhithakre51@gmail.com> 1792579310 +0530	commit (initial): Initial commit
+3d520cc25fe305fd3d008d1626c4600736702f26 0000000000000000000000000000000000000000 Nidhi Thakre <nidhithakre51@gmail.com> 1792579336 +0530	Branch: renamed refs/heads/main to refs/heads/main
+3d520cc25fe305fd3d008d1626c4600736702f26 3d520cc25fe305fd3d008d1626c4600736702f26 Nidhi Thakre <nidhithakre51@gmail.com> 1792579336 +0530	Branch: renamed refs/heads/main to refs/heads/main
+3d520cc25fe305fd3d008d1626c4600736702f26 0000000000000000000000000000000000000000 Nidhi Thakre <nidhithakre51@gmail.com> 1792579379 +0530	Branch: renamed refs/heads/main to refs/heads/main
+3d520cc25fe305fd3d008d1626c4600736702f26 3d520cc25fe305fd3d008d1626c4600736702f26 Nidhi Thakre <nidhithakre51@gmail.com> 1792579379 +0530	Branch: renamed refs/heads/main to refs/heads/main
+3d520cc25fe305fd3d008d1626c4600736702f26 5b2a033bd44b9c74383f98ba4a8be6bdf20b378e Nidhi Thakre <nidhithakre51@gmail.com> 1792658754 +0530	commit: Improve Supabase sign-in error handling

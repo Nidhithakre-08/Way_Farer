@@ -38,8 +38,9 @@ async def current_user(authorization: str | None = Header(default=None)):
     if not authorization or not authorization.lower().startswith("bearer "):
         raise HTTPException(status_code=401, detail="Please sign in.")
     token = authorization.split(" ", 1)[1].strip()
+    # Keep deployment misconfiguration distinct from an invalid user session.
+    client = supabase_client()
     try:
-        client = supabase_client()
         response = client.auth.get_user(token)
         if not response.user:
             raise ValueError("No user")
