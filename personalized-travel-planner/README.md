@@ -77,9 +77,9 @@ git push -u origin main
 Replace the remote URL with the URL of your GitHub repository. The root `.gitignore` excludes local `.env` files, Python environments, installed packages, and build output. Check `git status` before pushing and never commit Supabase service-role keys or other secrets.
 
 ## 6. Deploy the complete app to Vercel
-The repository root is the Vercel project root. `vercel.json` builds the Vite app from `frontend/`, serves the compiled SPA, and rewrites `/api/*` and `/health` to the FastAPI serverless function in `api/index.py`. API requests use the same Vercel domain, so do not set `VITE_API_URL` in production.
+Deploy the frontend and FastAPI backend together as **one Vercel project**. The repository root (the folder containing `vercel.json`, `api/`, and `requirements.txt`) must be the Vercel project root—not `frontend/` or `backend/`. The Vercel build installs the frontend from `frontend/`, builds its static SPA into `frontend/dist`, and installs the Python API dependencies from the root `requirements.txt`. Requests to `/api/*` and `/health` are routed to the FastAPI function in `api/index.py`; the API and browser app share one Vercel domain. Do not set `VITE_API_URL` for this deployment.
 
-1. Push this repository to GitHub and import it in Vercel. Keep **Root Directory** set to the repository root (the folder containing `vercel.json`), then deploy.
+1. Push this repository to GitHub and import it in Vercel. Keep **Root Directory** set to the repository root (the folder containing `vercel.json`), and leave **Include files outside the root directory** at its default. Do not create a second Vercel project for `frontend/` or `backend/` for this same-domain setup.
 2. In **Vercel → Project → Settings → Environment Variables**, add these for Production (and Preview if needed):
 	- `VITE_SUPABASE_URL` — Supabase Project URL
 	- `VITE_SUPABASE_ANON_KEY` — Supabase publishable/anon key
@@ -88,7 +88,7 @@ The repository root is the Vercel project root. `vercel.json` builds the Vite ap
 	- `SUPABASE_SERVICE_ROLE_KEY` — Supabase service-role/secret key; server-side only, never use a `VITE_` prefix
 	- Optional AI settings: `AI_API_KEY`, `AI_BASE_URL`, and `AI_MODEL`. Without an AI key, the app uses its built-in demo planner.
 3. In **Supabase → Authentication → URL Configuration**, set **Site URL** to the deployed Vercel URL and add that URL (and any preview URL you use) to **Redirect URLs**. Keep localhost URLs for local development.
-4. Run `supabase/schema.sql` in the Supabase SQL Editor if you have not already done so. Redeploy after adding or changing `VITE_` variables; Vite embeds them during the build.
+4. Run `supabase/schema.sql` in the Supabase SQL Editor if you have not already done so. Redeploy after adding or changing `VITE_` variables; Vite embeds them during the build. The regular Supabase and AI variables are read at function runtime.
 5. Check `https://<your-deployment>.vercel.app/health`, then sign up, create a trip, generate an itinerary, and open a shared trip link.
 
 The travel assistant appears as **Ask Wayfarer** at the bottom-right of the app. It requires a signed-in session. Without `AI_API_KEY`, it returns a clearly labeled built-in fallback; with an OpenAI-compatible provider key it sends chat requests through the backend so the key is never exposed to the browser. Travel photography is loaded from Unsplash image URLs and therefore requires an internet connection in the browser.
